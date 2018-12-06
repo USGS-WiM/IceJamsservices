@@ -18,35 +18,17 @@
 //
 //   
 
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 namespace IceJamsDB.Resources
 {
-    public partial class IceJam
+    public partial class DamageType
     {
         [Required]
         public int ID { get; set; }
         [Required]
-        public DateTime ObservationDateTime { get; set; }
-        [Required]
-        public int JamTypeID { get; set; }
-        [Required]
-        public int SiteID { get; set; }
-        [Required]
-        public int ObserverID { get; set; }
+        public string Name { get; set; }
         [Required]
         public string Description { get; set; }
-        public string Comments { get; set; }
-
-        public Site Site { get; set; }
-        public JamType Type { get; set; }
-        public Observer Observer { get; set; }
-
-        public List<IceCondition> IceConditions { get; set; }
-        public List<RiverCondition> RiverConditions { get; set; }
-        public List<WeatherCondition> WeatherConditions { get; set; }
-        public List<Damage> Damages { get; set; }
-        public List<File> Files { get; set; }
+        public string ExampleImageURL { get; set; }
     }
 }

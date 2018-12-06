@@ -35,12 +35,13 @@ namespace IceJamsDB.Resources
         public int RiverConditionTypeID { get; set; }
         public bool IsFlooding { get; set; }
         public int StageTypeID { get; set; }
-        public double StageValue { get; set; }
+        public double Measurement { get; set; }
         public bool IsChanging { get; set; }
         [Required]
         public string Comments { get; set; }
 
         public StageType StageType { get; set; }
-        public RiverConditionType RiverConditionType { get; set; }
+        public RiverConditionType Type { get; set; }
+
     }
 }

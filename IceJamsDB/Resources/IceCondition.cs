@@ -35,7 +35,7 @@ namespace IceJamsDB.Resources
         [Required]
         public int IceConditionTypeID { get; set; }
         [Required]
-        public double Value { get; set; }
+        public double Measurement { get; set; }
         public bool IsEstimated { get; set; }
         public bool IsChanging { get; set; }
         public string Comments { get; set; }
@@ -44,7 +44,7 @@ namespace IceJamsDB.Resources
         public Point DownstreamEndLocation { get; set; }
         public int RoughnessTypeID { get; set; }
 
-        public IceConditionType IceConditionType { get; set; }
+        public IceConditionType Type { get; set; }
         public RoughnessType RoughnessType { get; set; }
     }
 }

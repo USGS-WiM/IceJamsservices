@@ -48,5 +48,6 @@ namespace IceJamsDB.Resources
         public string Salt { get; set; }
 
         public Role Role { get; set; }
+        public Agency Agency { get; set; }
     }
 }

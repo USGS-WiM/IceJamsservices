@@ -1,0 +1,17 @@
+[
+  {
+    "ID": 0,
+    "Name": "Administrator",
+    "Description": "System Administrator"
+  },
+  {
+    "ID": 1,
+    "Name": "Internal Observer",
+    "Description": "Internal Event Observer"
+  },
+  {
+    "ID": 2,
+    "Name": "External Observer",
+    "Description": "External Event Observer (default)"
+  }
+]

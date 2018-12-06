@@ -18,8 +18,10 @@
 //
 //     
 
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using NetTopologySuite.Geometries;
+
 
 namespace IceJamsDB.Resources
 {
@@ -42,5 +44,7 @@ namespace IceJamsDB.Resources
         public string AHPSID { get; set; }
         public string Comments { get; set; }
         public string Landmarks { get; set; }
+
+        List<Site> Sites { get; set; }
     }
 }

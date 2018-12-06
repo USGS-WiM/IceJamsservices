@@ -1,0 +1,32 @@
+[
+  {
+    "ID": 0,
+    "Name": "Water Temerature (F)",
+    "Description": ""
+  },
+  {
+    "ID": 1,
+    "Name": "Air Temperature (F)",
+    "Description": ""
+  },
+  {
+    "ID": 2,
+    "Name": "Rain (in.)",
+    "Description": ""
+  },
+  {
+    "ID": 3,
+    "Name": "Snow depth (in.)",
+    "Description": ""
+  },
+  {
+    "ID": 4,
+    "Name": "Average Wind speed (mph)",
+    "Description": ""
+  },
+  {
+    "ID": 5,
+    "Name": "Wind Direction",
+    "Description": ""
+  }
+]

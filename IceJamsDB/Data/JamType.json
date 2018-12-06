@@ -1,0 +1,37 @@
+[
+  {
+    "ID": 0,
+    "Name": "Freezeup",
+    "Description": ""
+  },
+  {
+    "ID": 1,
+    "Name": "Aufeis",
+    "Description": ""
+  },
+  {
+    "ID": 2,
+    "Name": "Anchor Ice",
+    "Description": ""
+  },
+  {
+    "ID": 3,
+    "Name": "Breakup",
+    "Description": ""
+  },
+  {
+    "ID": 4,
+    "Name": "Combination",
+    "Description": ""
+  },
+  {
+    "ID": 5,
+    "Name": "Released",
+    "Description": ""
+  },
+  {
+    "ID": 6,
+    "Name": "Uknown",
+    "Description": ""
+  }
+]

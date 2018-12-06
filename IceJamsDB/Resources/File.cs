@@ -35,6 +35,6 @@ namespace IceJamsDB.Resources
         public int IceJamID { get; set; }
         public int DamageID { get; set; }
 
-        public FileType FileType { get; set; }
+        public FileType Type { get; set; }
     }
 }
