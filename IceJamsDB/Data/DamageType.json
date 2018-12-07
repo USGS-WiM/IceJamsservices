@@ -1,17 +1,32 @@
 [
   {
-    "ID": 0,
-    "Name": "Flooding",
-    "Description": "Damaged due to flood"
-  },
-  {
     "ID": 1,
-    "Name": "Structure and Building",
-    "Description": "Structure or building damage"
+    "Name": "Flooding",
+    "Description": "Damaged due to flood",
+    "LastModified": "2018-10-25 18:40:33.68087"
   },
   {
     "ID": 2,
+    "Name": "Infrastructure",
+    "Description": "Structure or building damage",
+    "LastModified": "2018-10-25 18:40:33.68087"
+  },
+  {
+    "ID": 3,
     "Name": "Mortality",
-    "Description": "Death"
+    "Description": "Death",
+    "LastModified": "2018-10-25 18:40:33.68087"
+  },
+  {
+    "ID": 4,
+    "Name": "Property",
+    "Description": "Property damage",
+    "LastModified": "2018-10-25 18:40:33.68087"
+  },
+  {
+    "ID": 5,
+    "Name": "Other",
+    "Description": "Other - see description/comments",
+    "LastModified": "2018-10-25 18:40:33.68087"
   }
 ]

@@ -1,0 +1,113 @@
+[
+  {
+    "ObservationDate": "1865-12-15T00:00:00.0Z",
+    "JamTypeID": "7",
+    "SiteID": "1",
+    "ObserverID": 1,
+    "Description": "A single river closure in effect for 29 days during the winter period. Closed Dec 15 to Jan 12.",
+    "Comments": "index# 11095",
+    "IceConditions": null,
+    "RiverConditions": null,
+    "WeatherConditions": null,
+    "Damages": [
+      {
+        "DamageTypeID": 4,
+        "DateTimeReported": "1865-12-15T00:00:00.0Z",
+        "Description": "river closure in effect for 29 days"
+      }
+    ],
+    "Files": [
+      {
+        "FileTypeID": 2,
+        "URL": "/sometablesomewhere.else",
+        "Description": "Anonymous table in USACRREL files entitled Record of Ice in Mississippi River at St. Louis, Missouri 1865 - 1962"
+      }
+    ]
+  },
+  {
+    "ObservationDate": "1865-03-01T00:00:00.0Z",
+    "JamTypeID": "4",
+    "SiteID": "2",
+    "ObserverID": 1,
+    "Description": "Destructive floods are not infrequent on this stream, four notable ones having occurred during the past forty years. One of these occurred in March, 1865, and was due to excessive precipitation, accompanied by the rapid melting of ice and snow and the formation of ice gorges.",
+    "Comments": "index# 4394",
+    "IceConditions": null,
+    "RiverConditions": null,
+    "WeatherConditions": null,
+    "Damages": null,
+    "Files": [
+      {
+        "FileTypeID": 3,
+        "URL": "/sometablesomewhere2.else",
+        "Description": "Murphy, EC et al (1905) Destructive Floods in the United States in 1904; USGS Water-Supply and Irrigation Paper No. 147"
+      }
+    ]
+  },
+  {
+    "ObservationDate": "1865-03-17T00:00:00.0Z",
+    "JamTypeID": "4",
+    "SiteID": "3",
+    "ObserverID": 1,
+    "Description": "On St. Patrick's Day in 1865 the Oil Creek confluence with the Allegheny River became jammed with ice at Oil City, PA. Heavy rainfall and melting snow contributed to the flooding. The Oil Creek was recorded at 28 feet deep, a record which would not be broken until the jam of 1926. Though the jam broke the following day, the damage was devastating. The wooden Center Street bridge was ripped from it(s) foundation...newspaper accounts told of one man dead, 60,000 barrels of oil lost, 150 boats smashed, 100 horses drowned, nearly 300 buildings and homes destroyed, and miles of railroad tracks washed out.",
+    "Comments": "index# 20040621110354",
+    "IceConditions": null,
+    "RiverConditions": null,
+    "WeatherConditions": null,
+    "Damages": [
+      {
+        "DamageTypeID": 1,
+        "DateTimeReported": "1865-03-17T00:00:00.0Z",
+        "Description": "The wooden Center Street bridge was ripped from it(s) foundation"
+      },
+      {
+        "DamageTypeID": 4,
+        "DateTimeReported": "1865-12-15T00:00:00.0Z",
+        "Description": "60,000 barrels of oil lost, 150 boats smashed, 100 horses drowned, nearly 300 buildings and homes destroyed, and miles of railroad tracks washed out."
+      }
+    ],
+    "Files": [
+      {
+        "FileTypeID": 3,
+        "URL": "/sometablesomewhere3.else",
+        "Description": "120 Years Since Holiday Flood. The Oil City Derrick, Oil City, PA. March 16, 1985."
+      }
+    ]
+  },
+  {
+    "ObservationDate": "2014-02-21T00:00:00.0Z",
+    "JamTypeID": "4",
+    "SiteID": "4",
+    "ObserverID": 1,
+    "Description": "on 21 Feb at AT 134 PM EST...EMERGENCY MANAGEMENT REPORTED ICE JAM MOVEMENT ALONG BUFFALO CREEK NEAR BOGGSVILLE AND YELLOW DOG. THE WATER IS FLUCTUATING RAPIDLY IN THIS AREA AS MUCH AS 4 FEET IN 5 MINUTES AS THE ICE IS MOVING DOWNSTREAM. location based on town location",
+    "Comments": "index# 20140225124419",
+    "IceConditions": null,
+    "RiverConditions": null,
+    "WeatherConditions": null,
+    "Damages": null,
+    "Files": null
+  },
+  {
+    "ObservationDate": "2014-02-21T00:00:00.0Z",
+    "JamTypeID": "4",
+    "SiteID": "5",
+    "ObserverID": 1,
+    "Description": "An ice jam occurred at Warren on the Salamonie River on 2/22/14.  Stage exceeded Moderate flood stage.",
+    "Comments": "index# 20140225124419",
+    "IceConditions": null,
+    "RiverConditions": [
+      {
+        "DateTime": "2014-02-21T13:46:00.0Z",
+        "RiverConditionTypeID": 2,
+        "StageTypeID": null,
+        "Measurement": null,
+        "IsFlooding": true,
+        "IsChanging": false,
+        "comments": null
+      }
+    ],
+    "WeatherConditions": null,
+    "Damages": null,
+    "Files": null
+  }
+]
+

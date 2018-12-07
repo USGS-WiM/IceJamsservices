@@ -23,7 +23,6 @@
 
 using Microsoft.EntityFrameworkCore;
 using IceJamsDB.Resources;
-using Microsoft.EntityFrameworkCore.Metadata;
 using System;
 using System.IO;
 using Newtonsoft.Json;
@@ -81,6 +80,7 @@ namespace IceJamsDB
             //https://x-team.com/blog/automatic-timestamps-with-postgresql/
             foreach (var entitytype in modelBuilder.Model.GetEntityTypes())
             {
+                if (entitytype.Name.EndsWith("Type")) continue;
                 modelBuilder.Entity(entitytype.Name).Property<DateTime>("LastModified");
             }//next entitytype
 
@@ -98,13 +98,6 @@ namespace IceJamsDB
                     .OnDelete(DeleteBehavior.Restrict);
             });
 
-            modelBuilder.Entity(typeof(Site), b => {
-                b.HasOne(typeof(IceJam), "Site")
-                .WithMany()
-                .HasForeignKey("SiteID")
-                .OnDelete(DeleteBehavior.Restrict);
-            });
-
             modelBuilder.Entity(typeof(IceJam), b => {
                 b.HasOne(typeof(JamType), "Type")
                 .WithMany()
@@ -114,6 +107,11 @@ namespace IceJamsDB
                 b.HasOne(typeof(Observer), "Observer")
                   .WithMany()
                   .HasForeignKey("ObserverID")
+                  .OnDelete(DeleteBehavior.Restrict);
+
+                b.HasOne(typeof(Site), "Site")
+                  .WithMany()
+                  .HasForeignKey("SiteID")
                   .OnDelete(DeleteBehavior.Restrict);
             });
 
@@ -163,31 +161,29 @@ namespace IceJamsDB
             });
 
             //seed the db - Must be commented out after migration
-            var path = Path.Combine(Environment.CurrentDirectory, "Data");
-            modelBuilder.Entity<Agency>().HasData(JsonConvert.DeserializeObject<Agency[]>(System.IO.File.ReadAllText(Path.Combine(path, "Agency.json"))));
-            modelBuilder.Entity<DamageType>().HasData(JsonConvert.DeserializeObject<DamageType[]>(System.IO.File.ReadAllText(Path.Combine(path, "DamageType.json"))));
-            modelBuilder.Entity<FileType>().HasData(JsonConvert.DeserializeObject<FileType[]>(System.IO.File.ReadAllText(Path.Combine(path, "FileType.json"))));
-            modelBuilder.Entity<IceConditionType>().HasData(JsonConvert.DeserializeObject<IceConditionType[]>(System.IO.File.ReadAllText(Path.Combine(path, "IceConditionType.json"))));
-            modelBuilder.Entity<JamType>().HasData(JsonConvert.DeserializeObject<JamType[]>(System.IO.File.ReadAllText(Path.Combine(path, "JamType.json"))));
-            modelBuilder.Entity<RiverConditionType>().HasData(JsonConvert.DeserializeObject<RiverConditionType[]>(System.IO.File.ReadAllText(Path.Combine(path, "RiverConditionType.json"))));
-            modelBuilder.Entity<Role>().HasData(JsonConvert.DeserializeObject<Role[]>(System.IO.File.ReadAllText(Path.Combine(path, "Role.json"))));
-            modelBuilder.Entity<RoughnessType>().HasData(JsonConvert.DeserializeObject<RoughnessType[]>(System.IO.File.ReadAllText(Path.Combine(path, "RoughnessType.json"))));
-            modelBuilder.Entity<StageType>().HasData(JsonConvert.DeserializeObject<StageType[]>(System.IO.File.ReadAllText(Path.Combine(path, "StageType.json"))));
-            modelBuilder.Entity<WeatherConditionType>().HasData(JsonConvert.DeserializeObject<WeatherConditionType[]>(System.IO.File.ReadAllText(Path.Combine(path, "WeatherConditionType.json"))));
+            //var path = Path.Combine(Environment.CurrentDirectory, "Data");
+            //modelBuilder.Entity<Agency>().HasData(JsonConvert.DeserializeObject<Agency[]>(System.IO.File.ReadAllText(Path.Combine(path, "Agency.json"))));
+            //modelBuilder.Entity<DamageType>().HasData(JsonConvert.DeserializeObject<DamageType[]>(System.IO.File.ReadAllText(Path.Combine(path, "DamageType.json"))));
+            //modelBuilder.Entity<FileType>().HasData(JsonConvert.DeserializeObject<FileType[]>(System.IO.File.ReadAllText(Path.Combine(path, "FileType.json"))));
+            //modelBuilder.Entity<IceConditionType>().HasData(JsonConvert.DeserializeObject<IceConditionType[]>(System.IO.File.ReadAllText(Path.Combine(path, "IceConditionType.json"))));
+            //modelBuilder.Entity<JamType>().HasData(JsonConvert.DeserializeObject<JamType[]>(System.IO.File.ReadAllText(Path.Combine(path, "JamType.json"))));
+            //modelBuilder.Entity<RiverConditionType>().HasData(JsonConvert.DeserializeObject<RiverConditionType[]>(System.IO.File.ReadAllText(Path.Combine(path, "RiverConditionType.json"))));
+            //modelBuilder.Entity<Role>().HasData(JsonConvert.DeserializeObject<Role[]>(System.IO.File.ReadAllText(Path.Combine(path, "Role.json"))));
+            //modelBuilder.Entity<RoughnessType>().HasData(JsonConvert.DeserializeObject<RoughnessType[]>(System.IO.File.ReadAllText(Path.Combine(path, "RoughnessType.json"))));
+            //modelBuilder.Entity<StageType>().HasData(JsonConvert.DeserializeObject<StageType[]>(System.IO.File.ReadAllText(Path.Combine(path, "StageType.json"))));
+            //modelBuilder.Entity<WeatherConditionType>().HasData(JsonConvert.DeserializeObject<WeatherConditionType[]>(System.IO.File.ReadAllText(Path.Combine(path, "WeatherConditionType.json"))));
 
-            modelBuilder.Entity<Site>().HasData(JsonConvert.DeserializeObject<Site[]>(System.IO.File.ReadAllText(Path.Combine(path, "Site.json"))));
-            modelBuilder.Entity<IceJam>().HasData(JsonConvert.DeserializeObject<IceJam[]>(System.IO.File.ReadAllText(Path.Combine(path, "IceJam.json"))));
-
-
-
+            //modelBuilder.Entity<Site>().HasData(JsonConvert.DeserializeObject<Site[]>(System.IO.File.ReadAllText(Path.Combine(path, "Site.json"))));
+            //modelBuilder.Entity<IceJam>().HasData(JsonConvert.DeserializeObject<IceJam[]>(System.IO.File.ReadAllText(Path.Combine(path, "Event.json"))));
 
             base.OnModelCreating(modelBuilder);             
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
 #warning Add connectionstring for migrations
-            var connectionstring = "User ID=;Password=;Host=;Port=5432;Database=;Pooling=true;";
-            //optionsBuilder.UseNpgsql(connectionstring);
+            var connectionstring = "User ID=;Password=;Host=pgtest.ck2zppz9pgsw.us-east-1.rds.amazonaws.com;Port=5432;Database=icejam;Pooling=true;";
+            optionsBuilder.UseNpgsql(connectionstring,x=> { x.MigrationsHistoryTable("_EFMigrationsHistory", "icejam"); x.UseNetTopologySuite(); });
+
         }
     }
 }

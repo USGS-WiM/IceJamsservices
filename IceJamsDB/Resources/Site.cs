@@ -31,7 +31,7 @@ namespace IceJamsDB.Resources
         public int ID { get; set; }
         [Required]
         public int Name { get; set; }
-        //[Required]
+        [Required]
         public Point Location { get; set; }
         [Required]
         public string State { get; set; }

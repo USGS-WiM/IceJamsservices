@@ -1,16 +1,87 @@
 [
   {
-    "ID": 0,
-    "Location": {},
-    "Name": "",
-    "State": "",
-    "City": "",
-    "County": "",
-    "RiverName": "",
-    "HUC": "",
-    "USGSID": "",
-    "AHPSID": "",
-    "Comments": "",
-    "Landmarks": ""
+    "ID": 1,
+    "Location": {
+      "type": "Point",
+      "coordinates": [ -90.16805555, 38.6175 ]
+    },
+    "Name": "Mississippi River at St. Louis, MO",
+    "State": "MO",
+    "City": "St. Louis",
+    "County": "St. Louis City",
+    "RiverName": "Mississipppi River",
+    "HUC": "7140101",
+    "USGSID": "07010000",
+    "AHPSID": null,
+    "Comments": null,
+    "Landmarks": null
+  },
+  {
+    "ID": 2,
+    "Location": {
+      "type": "Point",
+      "coordinates": [ -75.59583333, 41.97138888 ]
+    },
+    "Name": "Susquehanna River near McCalls Ferry, PA",
+    "State": "PA",
+    "City": "McCalls Ferry",
+    "County": "Susquehanna",
+    "RiverName": "Susquehanna River",
+    "HUC": "02050306",
+    "USGSID": "01577000",
+    "AHPSID": null,
+    "Comments": null,
+    "Landmarks": null
+  },
+  {
+    "ID": 3,
+    "Location": {
+      "type": "Point",
+      "coordinates": [ -79.70416666, 41.42638888 ]
+    },
+    "Name": "Oil Creek",
+    "State": "PA",
+    "City": "Oil City",
+    "County": "Venango",
+    "RiverName": "Oil Creek",
+    "HUC": "05010003",
+    "USGSID": null,
+    "AHPSID": null,
+    "Comments": null,
+    "Landmarks": null
+  },
+  {
+    "ID":4,
+    "Location": {
+      "type": "Point",
+      "coordinates": [ -79.67036111, 40.75955555 ]
+    },
+    "Name": "Buffalo Creek near Boggsville",
+    "State": "PA",
+    "City": "Boggsville",
+    "County": "Armstrong",
+    "RiverName": "Buffalo Creek",
+    "HUC": "Null",
+    "USGSID": "03049000",
+    "AHPSID": "FRPP1",
+    "Comments": null,
+    "Landmarks": null
+  },
+  {
+    "ID": 5,
+    "Location": {
+      "type": "Point",
+      "coordinates": [ -85.45361111, 40.7125 ]
+    },
+    "Name": "Buffalo Creek near Boggsville",
+    "State": "IN",
+    "City": "Warren",
+    "County": "Huntington",
+    "RiverName": "Salamonie River",
+    "HUC": "Null",
+    "USGSID": "03224300",
+    "AHPSID": "WRNI3",
+    "Comments": null,
+    "Landmarks": null
   }
 ]
