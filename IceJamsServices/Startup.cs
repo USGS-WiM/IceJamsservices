@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,6 +11,10 @@ using WiM.Services.Analytics;
 using WiM.Utilities.ServiceAgent;
 using WiM.Services.Resources;
 using IceJamsServices.Filters;
+using IceJamsDB;
+using System;
+using WiM.Security.Authentication.Basic;
+using Microsoft.AspNetCore.Authorization;
 
 namespace IceJamsServices
 {
@@ -43,13 +48,19 @@ namespace IceJamsServices
                                                         options.UseNpgsql(String.Format(Configuration
                                                             .GetConnectionString("IceJamsConnection"), Configuration["dbuser"], Configuration["dbpassword"], Configuration["dbHost"]),
                                                             //default is 1000, if > maxbatch, then EF will group requests in maxbatch size
-                                                            opt => opt.MaxBatchSize(1000))
+                                                            opt => { opt.MaxBatchSize(1000); opt.UseNetTopologySuite(); })
                                                             .EnableSensitiveDataLogging());
 
-            services.AddScoped<IIceJamsAgent, IceJamsServiceAgent>();
+            services.AddScoped<IIceJamsAgent, IceJamsAgent.IceJamsAgent>();
 
             services.AddScoped<IIceJamsAgent, IceJamsAgent.IceJamsAgent>();
             services.AddScoped<IAnalyticsAgent, GoogleAnalyticsAgent>((gaa)=> new GoogleAnalyticsAgent(Configuration["AnalyticsKey"]));
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = BasicDefaults.AuthenticationScheme;
+            }).AddBasicAuthentication();
+            services.AddAuthorization(options => loadAutorizationPolicies(options));
+
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy", builder => builder.AllowAnyOrigin()
@@ -67,9 +78,7 @@ namespace IceJamsServices
         // Method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
-
+            app.UseAuthentication();
             app.UseCors("CorsPolicy");
             app.Use_Analytics();
             app.UseX_Messages();
@@ -78,6 +87,19 @@ namespace IceJamsServices
         }
 
         #region Helper Methods
+        private void loadAutorizationPolicies(AuthorizationOptions options)
+        {
+            options.AddPolicy(
+                "CanModify",
+                policy => policy.RequireRole("Administrator", "Internal"));
+            options.AddPolicy(
+                "Restricted",
+                policy => policy.RequireRole("Administrator", "Internal", "External"));
+            options.AddPolicy(
+                "AdminOnly",
+                policy => policy.RequireRole("Administrator"));
+        }
+
         private void loadJsonOptions(MvcJsonOptions options)
         {
             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;

@@ -181,7 +181,7 @@ namespace IceJamsDB
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
 #warning Add connectionstring for migrations
-            var connectionstring = "User ID=;Password=;Host=pgtest.ck2zppz9pgsw.us-east-1.rds.amazonaws.com;Port=5432;Database=icejam;Pooling=true;";
+            //var connectionstring = "User ID=;Password=;Host=;Port=5432;Database=icejam;Pooling=true;";
             //optionsBuilder.UseNpgsql(connectionstring,x=> { x.MigrationsHistoryTable("_EFMigrationsHistory", "icejam"); x.UseNetTopologySuite(); });
 
         }

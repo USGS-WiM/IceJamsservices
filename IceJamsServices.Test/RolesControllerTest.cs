@@ -22,10 +22,10 @@ namespace IceJamsServices.Test
 {
     public class IceJamsTest
     {
-        public IceJamsController controller { get; private set; }
+        public AgenciesController controller { get; private set; }
         public IceJamsTest() {
             //Arrange
-            controller = new IceJamsController(new InMemoryIceJamsAgent());
+            controller = new AgenciesController(new InMemoryIceJamsAgent());
             //must set explicitly for tests to work
             controller.ObjectValidator = new InMemoryModelValidator();
         }

@@ -6,12 +6,12 @@
   },
   {
     "ID": 2,
-    "Name": "Internal Observer",
+    "Name": "Internal",
     "Description": "Internal Event Observer"
   },
   {
     "ID": 3,
-    "Name": "External Observer",
+    "Name": "External",
     "Description": "External Event Observer (default)"
   }
 ]

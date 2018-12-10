@@ -89,6 +89,7 @@ namespace IceJamsAgent
         //Observer
         IQueryable<Observer> GetObservers();
         Task<Observer> GetObserver(Int32 ID);
+        Task<Observer> FindObserver(int ID);
         Task<Observer> Add(Observer item);
         Task<IEnumerable<Observer>> Add(List<Observer> items);
         Task<Observer> Update(Int32 pkId, Observer item);
@@ -320,9 +321,26 @@ namespace IceJamsAgent
         }
         public IQueryable<Observer> GetObservers()
         {
-            return this.Select<Observer>();
+            return this.Select<Observer>().Include(o=>o.Agency).Include(o=>o.Role).Select(o => new Observer() {
+                ID = o.ID,
+                AgencyID = o.AgencyID,
+                Agency = o.Agency,
+                Email = o.Email,
+                FirstName = o.FirstName,
+                LastName = o.LastName,
+                OtherInfo = o.OtherInfo,
+                PrimaryPhone = o.PrimaryPhone,
+                RoleID = o.RoleID,
+                Role = o.Role,
+                SecondaryPhone = o.SecondaryPhone,
+                Username = o.Username
+            });
         }
         public Task<Observer> GetObserver(int ID)
+        {
+            return Task.Run(() => { return this.GetObservers().FirstOrDefault(o=>o.ID ==ID);});
+        }
+        public Task<Observer> FindObserver(int ID)
         {
             return this.Find<Observer>(ID);
         }

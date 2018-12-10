@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
+    <UserSecretsId>e7655053-5947-4a92-86ef-d64d756f0073</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,6 +15,7 @@
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.2.0" />
     <PackageReference Include="WiM.Analytics" Version="1.1.0" />
     <PackageReference Include="WiM.Hypermedia" Version="1.1.1" />
+    <PackageReference Include="WiM.Security" Version="1.1.0" />
     <PackageReference Include="WiM.Services" Version="1.1.7" />
   </ItemGroup>
 
