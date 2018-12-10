@@ -2,14 +2,12 @@
   {
     "ID": 1,
     "Name": "Flooding",
-    "Description": "Damaged due to flood",
-    "LastModified": "2018-10-25 18:40:33.68087"
+    "Description": "Damaged due to flood"
   },
   {
     "ID": 2,
     "Name": "Infrastructure",
-    "Description": "Structure or building damage",
-    "LastModified": "2018-10-25 18:40:33.68087"
+    "Description": "Structure or building damage"
   },
   {
     "ID": 3,
@@ -20,13 +18,11 @@
   {
     "ID": 4,
     "Name": "Property",
-    "Description": "Property damage",
-    "LastModified": "2018-10-25 18:40:33.68087"
+    "Description": "Property damage"
   },
   {
     "ID": 5,
     "Name": "Other",
-    "Description": "Other - see description/comments",
-    "LastModified": "2018-10-25 18:40:33.68087"
+    "Description": "Other - see description/comments"
   }
 ]
