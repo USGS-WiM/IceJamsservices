@@ -64,7 +64,7 @@ namespace IceJamsServices.Controllers
         }
 
         [HttpPost]
-        [Authorize(Policy = "CanModify")]
+        [Authorize(Policy = "Restricted")]
         public async Task<IActionResult> Post([FromBody]Site entity)
         {
             try

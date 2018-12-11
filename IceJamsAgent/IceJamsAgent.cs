@@ -148,7 +148,7 @@ namespace IceJamsAgent
         Task DeleteWeatherConditionType(Int32 pkID);
     }
 
-    public class IceJamsAgent:DBAgentBase, IIceJamsAgent
+    public class IceJamsAgent:DBAgentBase, IIceJamsAgent,IBasicUserAgent
     {
         #region Properties
         

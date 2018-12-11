@@ -1,0 +1,1 @@
+The IceConditionType resource represents an Ice condition type list available for ice jam event Ice conditions.

@@ -1,0 +1,1 @@
+The damage type resources represents damage category lists for ice jam event responses.

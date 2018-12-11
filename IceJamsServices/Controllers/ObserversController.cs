@@ -114,7 +114,7 @@ namespace IceJamsServices.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize(Policy = "CanModify")]
+        [Authorize(Policy = "Restricted")]
         public async Task<IActionResult> Put(int id, [FromBody]Observer entity)
         {
             Observer ObjectToBeUpdated = null;

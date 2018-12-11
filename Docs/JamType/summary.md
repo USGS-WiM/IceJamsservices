@@ -1,0 +1,1 @@
+The jamtype resource represents jams available for ice jam event responses.

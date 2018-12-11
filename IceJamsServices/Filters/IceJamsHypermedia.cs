@@ -41,9 +41,7 @@ namespace IceJamsServices.Filters
                 default:
                     break;
             }
-
             return results;
-
         }
 
         protected override List<Link> GetReflectedHypermedia(IHypermedia entity)

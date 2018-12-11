@@ -28,7 +28,7 @@ namespace IceJamsServices
             .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
             .AddEnvironmentVariables();
             if (env.IsDevelopment()) {
-                //builder.AddApplicationInsightsSettings(developerMode: true);
+                builder.AddUserSecrets<Startup>();
             }
 
             Configuration = builder.Build();
@@ -52,8 +52,8 @@ namespace IceJamsServices
                                                             .EnableSensitiveDataLogging());
 
             services.AddScoped<IIceJamsAgent, IceJamsAgent.IceJamsAgent>();
+            services.AddScoped<IBasicUserAgent, IceJamsAgent.IceJamsAgent>();
 
-            services.AddScoped<IIceJamsAgent, IceJamsAgent.IceJamsAgent>();
             services.AddScoped<IAnalyticsAgent, GoogleAnalyticsAgent>((gaa)=> new GoogleAnalyticsAgent(Configuration["AnalyticsKey"]));
             services.AddAuthentication(options =>
             {
@@ -70,8 +70,9 @@ namespace IceJamsServices
             });
 
             services.AddMvc(options => { options.RespectBrowserAcceptHeader = true;
-                options.Filters.Add(new IceJamsHypermedia());})                               
-                                .AddJsonOptions(options => loadJsonOptions(options));                                
+                //Resources must inherit from IHypermedia for this to work.
+                //options.Filters.Add(new IceJamsHypermedia());
+            }).AddJsonOptions(options => loadJsonOptions(options));                                
                                 
         }     
 
@@ -90,11 +91,8 @@ namespace IceJamsServices
         private void loadAutorizationPolicies(AuthorizationOptions options)
         {
             options.AddPolicy(
-                "CanModify",
-                policy => policy.RequireRole("Administrator", "Internal"));
-            options.AddPolicy(
                 "Restricted",
-                policy => policy.RequireRole("Administrator", "Internal", "External"));
+                policy => policy.RequireRole("Administrator", "Internal"));
             options.AddPolicy(
                 "AdminOnly",
                 policy => policy.RequireRole("Administrator"));
