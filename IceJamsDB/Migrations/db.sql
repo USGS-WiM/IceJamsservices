@@ -72,12 +72,12 @@ CREATE TABLE icejam."RoughnessTypes" (
 
 CREATE TABLE icejam."Sites" (
     "ID" serial NOT NULL,
-    "Name" integer NOT NULL,
+    "Name" text NOT NULL,
     "Location" geometry NOT NULL,
     "State" text NOT NULL,
     "County" text NOT NULL,
     "RiverName" text NOT NULL,
-    "HUC" integer NOT NULL,
+    "HUC" text NULL,
     "USGSID" text NULL,
     "AHPSID" text NULL,
     "Comments" text NULL,
@@ -108,7 +108,7 @@ CREATE TABLE icejam."Observers" (
     "Email" text NOT NULL,
     "PrimaryPhone" text NULL,
     "SecondaryPhone" text NULL,
-    "AgencyID" integer NOT NULL,
+    "AgencyID" integer NULL,
     "RoleID" integer NOT NULL,
     "OtherInfo" text NULL,
     "Password" text NOT NULL,
@@ -152,12 +152,12 @@ CREATE TABLE icejam."IceConditions" (
     "DateTime" timestamp without time zone NOT NULL,
     "IceConditionTypeID" integer NOT NULL,
     "Measurement" double precision NOT NULL,
-    "IsEstimated" boolean NOT NULL,
-    "IsChanging" boolean NOT NULL,
+    "IsEstimated" boolean NULL,
+    "IsChanging" boolean NULL,
     "Comments" text NULL,
     "UpstreamEndLocation" geometry NULL,
     "DownstreamEndLocation" geometry NULL,
-    "RoughnessTypeID" integer NOT NULL,
+    "RoughnessTypeID" integer NULL,
     "LastModified" timestamp without time zone NOT NULL,
     CONSTRAINT "PK_IceConditions" PRIMARY KEY ("ID"),
     CONSTRAINT "FK_IceConditions_IceConditionTypes_IceConditionTypeID" FOREIGN KEY ("IceConditionTypeID") REFERENCES icejam."IceConditionTypes" ("ID") ON DELETE RESTRICT,
@@ -188,9 +188,9 @@ CREATE TABLE icejam."WeatherConditions" (
     "DateTime" timestamp without time zone NOT NULL,
     "WeatherConditionTypeID" integer NOT NULL,
     "Measurement" double precision NOT NULL,
-    "IsEstimated" boolean NOT NULL,
-    "IsChanging" boolean NOT NULL,
-    "Comments" text NOT NULL,
+    "IsEstimated" boolean NULL,
+    "IsChanging" boolean NULL,
+    "Comments" text NULL,
     "LastModified" timestamp without time zone NOT NULL,
     CONSTRAINT "PK_WeatherConditions" PRIMARY KEY ("ID"),
     CONSTRAINT "FK_WeatherConditions_IceJams_IceJamID" FOREIGN KEY ("IceJamID") REFERENCES icejam."IceJams" ("ID") ON DELETE CASCADE,
@@ -203,10 +203,10 @@ CREATE TABLE icejam."Files" (
     "URL" text NOT NULL,
     "Description" text NOT NULL,
     "IceJamID" integer NOT NULL,
-    "DamageID" integer NOT NULL,
+    "DamageID" integer NULL,
     "LastModified" timestamp without time zone NOT NULL,
     CONSTRAINT "PK_Files" PRIMARY KEY ("ID"),
-    CONSTRAINT "FK_Files_Damages_DamageID" FOREIGN KEY ("DamageID") REFERENCES icejam."Damages" ("ID") ON DELETE CASCADE,
+    CONSTRAINT "FK_Files_Damages_DamageID" FOREIGN KEY ("DamageID") REFERENCES icejam."Damages" ("ID") ON DELETE RESTRICT,
     CONSTRAINT "FK_Files_FileTypes_FileTypeID" FOREIGN KEY ("FileTypeID") REFERENCES icejam."FileTypes" ("ID") ON DELETE RESTRICT,
     CONSTRAINT "FK_Files_IceJams_IceJamID" FOREIGN KEY ("IceJamID") REFERENCES icejam."IceJams" ("ID") ON DELETE CASCADE
 );
@@ -287,5 +287,5 @@ CREATE INDEX "IX_WeatherConditions_WeatherConditionTypeID" ON icejam."WeatherCon
                 
 
 INSERT INTO icejam."_EFMigrationsHistory" ("MigrationId", "ProductVersion")
-VALUES ('20181207212347_init', '2.2.0-rtm-35687');
+VALUES ('20181213165158_init', '2.2.0-rtm-35687');
 

@@ -33,7 +33,7 @@ namespace IceJamsDB.Resources
         public string Description { get; set; }
         [Required]
         public int IceJamID { get; set; }
-        public int DamageID { get; set; }
+        public int? DamageID { get; set; }
 
         public FileType Type { get; set; }
     }

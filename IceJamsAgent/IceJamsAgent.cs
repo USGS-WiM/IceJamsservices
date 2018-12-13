@@ -54,7 +54,11 @@ namespace IceJamsAgent
         Task DeleteDamageType(Int32 pkID);
 
         //Event
-        //TODO, add methods to access Event
+        IQueryable<Event> GetEvents();
+        Task<Event> GetEvent(Int32 ID);
+        Task<Event> Add(Event item);
+        Task<Event> Update(Int32 pkId, Event item);
+        Task DeleteEvent(Int32 pkID);
 
         //File (Available via Event)
 
@@ -213,6 +217,50 @@ namespace IceJamsAgent
             return this.Delete<DamageType>(pkID);
         }
         #endregion
+        #region Event
+        public IQueryable<Event> GetEvents()
+        {
+            return this.Select<IceJam>().Include(i => i.Type)
+                                        .Include("Damages.Type").Include("Damages.Files")
+                                        .Include("Files.Type")
+                                        .Include("WeatherConditions.Type")
+                                        .Include("IceConditions.Type").Include("IceConditions.RoughnessType")
+                                        .Include("RiverConditions.Type").Include("RiverConditions.StageType").Select(j => new Event()
+                                        {
+                                            ID = j.ID,
+                                            ObservationDateTime = j.ObservationDateTime,
+                                            JamTypeID = j.JamTypeID,
+                                            SiteID = j.SiteID,
+                                            ObserverID = j.ObserverID,
+                                            Description = j.Description,
+                                            Comments = j.Comments,
+
+                                            Type = j.Type,
+                                            IceConditions = j.IceConditions,
+                                            RiverConditions = j.RiverConditions,
+                                            WeatherConditions = j.WeatherConditions,
+                                            Damages = j.Damages,
+                                            Files = j.Files
+                                        });
+        }
+        public Task<Event> GetEvent(Int32 ID)
+        {
+            return this.GetEvents().FirstOrDefaultAsync(i => i.ID == ID);            
+        }
+        public Task<Event> Add(Event item)
+        {
+            return this.Add<IceJam>(item).ContinueWith<Event>(t => (Event)t.Result);            
+        }
+        public Task<Event> Update(Int32 pkId, Event item)
+        {
+#warning "Todo"
+            throw new NotImplementedException();
+        }
+        public Task DeleteEvent(Int32 pkID)
+        {
+            return this.Delete<IceJam>(pkID);
+        }
+        #endregion
         #region FileTypes
         public IQueryable<FileType> GetFileTypes()
         {
@@ -235,7 +283,6 @@ namespace IceJamsAgent
             return this.Update<FileType>(pkId, item);
         }
         public Task DeleteFileType(Int32 pkID)
-
         {
             return this.Delete<FileType>(pkID);
         }
@@ -338,7 +385,7 @@ namespace IceJamsAgent
         }
         public Task<Observer> GetObserver(int ID)
         {
-            return Task.Run(() => { return this.GetObservers().FirstOrDefault(o=>o.ID ==ID);});
+            return this.GetObservers().FirstOrDefaultAsync(o=>o.ID ==ID);
         }
         public Task<Observer> FindObserver(int ID)
         {

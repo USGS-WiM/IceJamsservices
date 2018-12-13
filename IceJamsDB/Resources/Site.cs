@@ -21,7 +21,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using NetTopologySuite.Geometries;
-
+using NetTopologySuite.IO.Converters;
+using Newtonsoft.Json;
 
 namespace IceJamsDB.Resources
 {
@@ -30,8 +31,9 @@ namespace IceJamsDB.Resources
         [Required]
         public int ID { get; set; }
         [Required]
-        public int Name { get; set; }
+        public string Name { get; set; }
         [Required]
+        [JsonConverter(typeof(GeometryConverter))]
         public Point Location { get; set; }
         [Required]
         public string State { get; set; }
@@ -39,12 +41,10 @@ namespace IceJamsDB.Resources
         public string County { get; set; }
         [Required]
         public string RiverName { get; set; }
-        public int HUC { get; set; }
+        public string HUC { get; set; }
         public string USGSID { get; set; }
         public string AHPSID { get; set; }
         public string Comments { get; set; }
         public string Landmarks { get; set; }
-
-        List<Site> Sites { get; set; }
     }
 }

@@ -21,17 +21,20 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using IceJamsAgent;
+using IceJamsAgent.Resources;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using WiM.Resources;
 using IceJamsDB.Resources;
 using Microsoft.AspNetCore.Authorization;
+using System.Linq;
 
 namespace IceJamsServices.Controllers
 {
     [Route("[controller]")]
-    public class AgenciesController : ControllerBase
+    public class EventsController : ControllerBase
     {
-        public AgenciesController(IIceJamsAgent agent ) : base(agent)
+        public EventsController(IIceJamsAgent agent ) : base(agent)
         {
         }
         #region METHODS
@@ -40,7 +43,7 @@ namespace IceJamsServices.Controllers
         {
             try
             {
-                return Ok(agent.GetAgencies());
+                return Ok(agent.GetEvents().ToList());
             }
             catch (Exception ex)
             {
@@ -54,7 +57,7 @@ namespace IceJamsServices.Controllers
             try
             {
                 if (id < 0) return new BadRequestResult(); // This returns HTTP 404
-                return Ok(await agent.GetAgency(id));
+                return Ok(await agent.GetEvent(id));
             }
             catch (Exception ex)
             {
@@ -63,11 +66,13 @@ namespace IceJamsServices.Controllers
         }
 
         [HttpPost]
-        [Authorize(Policy = "AdminOnly")]
-        public async Task<IActionResult> Post([FromBody]Agency entity)
+        [Authorize(Policy = "Restricted")]
+        public async Task<IActionResult> Post([FromBody]Event entity)
         {
             try
             {
+                entity.ObserverID = this.LoggedInUser().ID;
+
                 if (!isValid(entity)) return new BadRequestResult(); // This returns HTTP 404
                 return Ok(await agent.Add(entity));
             }
@@ -77,24 +82,9 @@ namespace IceJamsServices.Controllers
             }
         }
 
-        [HttpPost]
-        [Authorize(Policy = "AdminOnly")]
-        [Route("Batch")]
-        public async Task<IActionResult> Batch([FromBody]List<Agency> entities)
-        {
-            try
-            {
-                return Ok(await agent.Add(entities));
-            }
-            catch (Exception ex)
-            {
-                return await HandleExceptionAsync(ex);
-            }
-        }
-
         [HttpPut("{id}")]
         [Authorize(Policy = "AdminOnly")]
-        public async Task<IActionResult> Put(int id, [FromBody]Agency entity)
+        public async Task<IActionResult> Put(int id, [FromBody]Event entity)
         {
             try
             {
@@ -113,7 +103,7 @@ namespace IceJamsServices.Controllers
         {
             try
             {
-                await agent.DeleteAgency(id);
+                await agent.DeleteEvent(id);
                 return Ok();
             }
             catch (Exception ex)

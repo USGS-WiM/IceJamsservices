@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace IceJamsDB.Migrations
 {
     [DbContext(typeof(IceJamsDBContext))]
-    [Migration("20181207212347_init")]
+    [Migration("20181213165158_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -19,7 +19,7 @@ namespace IceJamsDB.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("icejam")
-                .HasAnnotation("Npgsql:PostgresExtension:postgis", "'postgis', '', ''")
+                .HasAnnotation("Npgsql:PostgresExtension:postgis", ",,")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
                 .HasAnnotation("ProductVersion", "2.2.0-rtm-35687")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
@@ -97,7 +97,7 @@ namespace IceJamsDB.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("DamageID");
+                    b.Property<int?>("DamageID");
 
                     b.Property<string>("Description")
                         .IsRequired();
@@ -156,15 +156,15 @@ namespace IceJamsDB.Migrations
 
                     b.Property<int>("IceJamID");
 
-                    b.Property<bool>("IsChanging");
+                    b.Property<bool?>("IsChanging");
 
-                    b.Property<bool>("IsEstimated");
+                    b.Property<bool?>("IsEstimated");
 
                     b.Property<DateTime>("LastModified");
 
                     b.Property<double>("Measurement");
 
-                    b.Property<int>("RoughnessTypeID");
+                    b.Property<int?>("RoughnessTypeID");
 
                     b.Property<Point>("UpstreamEndLocation");
 
@@ -255,7 +255,7 @@ namespace IceJamsDB.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("AgencyID");
+                    b.Property<int?>("AgencyID");
 
                     b.Property<string>("Email")
                         .IsRequired();
@@ -399,7 +399,7 @@ namespace IceJamsDB.Migrations
                     b.Property<string>("County")
                         .IsRequired();
 
-                    b.Property<int>("HUC");
+                    b.Property<string>("HUC");
 
                     b.Property<string>("Landmarks");
 
@@ -408,7 +408,8 @@ namespace IceJamsDB.Migrations
                     b.Property<Point>("Location")
                         .IsRequired();
 
-                    b.Property<int>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.Property<string>("RiverName")
                         .IsRequired();
@@ -447,16 +448,15 @@ namespace IceJamsDB.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Comments")
-                        .IsRequired();
+                    b.Property<string>("Comments");
 
                     b.Property<DateTime>("DateTime");
 
                     b.Property<int>("IceJamID");
 
-                    b.Property<bool>("IsChanging");
+                    b.Property<bool?>("IsChanging");
 
-                    b.Property<bool>("IsEstimated");
+                    b.Property<bool?>("IsEstimated");
 
                     b.Property<DateTime>("LastModified");
 
@@ -506,8 +506,7 @@ namespace IceJamsDB.Migrations
                 {
                     b.HasOne("IceJamsDB.Resources.Damage")
                         .WithMany("Files")
-                        .HasForeignKey("DamageID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("DamageID");
 
                     b.HasOne("IceJamsDB.Resources.FileType", "Type")
                         .WithMany()

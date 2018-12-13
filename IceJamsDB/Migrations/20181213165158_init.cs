@@ -13,7 +13,7 @@ namespace IceJamsDB.Migrations
                 name: "icejam");
 
             migrationBuilder.AlterDatabase()
-                .Annotation("Npgsql:PostgresExtension:postgis", "'postgis', '', ''");
+                .Annotation("Npgsql:PostgresExtension:postgis", ",,");
 
             migrationBuilder.CreateTable(
                 name: "Agencies",
@@ -147,12 +147,12 @@ namespace IceJamsDB.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
-                    Name = table.Column<int>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
                     Location = table.Column<Point>(nullable: false),
                     State = table.Column<string>(nullable: false),
                     County = table.Column<string>(nullable: false),
                     RiverName = table.Column<string>(nullable: false),
-                    HUC = table.Column<int>(nullable: false),
+                    HUC = table.Column<string>(nullable: true),
                     USGSID = table.Column<string>(nullable: true),
                     AHPSID = table.Column<string>(nullable: true),
                     Comments = table.Column<string>(nullable: true),
@@ -207,7 +207,7 @@ namespace IceJamsDB.Migrations
                     Email = table.Column<string>(nullable: false),
                     PrimaryPhone = table.Column<string>(nullable: true),
                     SecondaryPhone = table.Column<string>(nullable: true),
-                    AgencyID = table.Column<int>(nullable: false),
+                    AgencyID = table.Column<int>(nullable: true),
                     RoleID = table.Column<int>(nullable: false),
                     OtherInfo = table.Column<string>(nullable: true),
                     Password = table.Column<string>(nullable: false),
@@ -317,12 +317,12 @@ namespace IceJamsDB.Migrations
                     DateTime = table.Column<DateTime>(nullable: false),
                     IceConditionTypeID = table.Column<int>(nullable: false),
                     Measurement = table.Column<double>(nullable: false),
-                    IsEstimated = table.Column<bool>(nullable: false),
-                    IsChanging = table.Column<bool>(nullable: false),
+                    IsEstimated = table.Column<bool>(nullable: true),
+                    IsChanging = table.Column<bool>(nullable: true),
                     Comments = table.Column<string>(nullable: true),
                     UpstreamEndLocation = table.Column<Point>(nullable: true),
                     DownstreamEndLocation = table.Column<Point>(nullable: true),
-                    RoughnessTypeID = table.Column<int>(nullable: false),
+                    RoughnessTypeID = table.Column<int>(nullable: true),
                     LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
@@ -405,9 +405,9 @@ namespace IceJamsDB.Migrations
                     DateTime = table.Column<DateTime>(nullable: false),
                     WeatherConditionTypeID = table.Column<int>(nullable: false),
                     Measurement = table.Column<double>(nullable: false),
-                    IsEstimated = table.Column<bool>(nullable: false),
-                    IsChanging = table.Column<bool>(nullable: false),
-                    Comments = table.Column<string>(nullable: false),
+                    IsEstimated = table.Column<bool>(nullable: true),
+                    IsChanging = table.Column<bool>(nullable: true),
+                    Comments = table.Column<string>(nullable: true),
                     LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
@@ -440,7 +440,7 @@ namespace IceJamsDB.Migrations
                     URL = table.Column<string>(nullable: false),
                     Description = table.Column<string>(nullable: false),
                     IceJamID = table.Column<int>(nullable: false),
-                    DamageID = table.Column<int>(nullable: false),
+                    DamageID = table.Column<int>(nullable: true),
                     LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
@@ -452,7 +452,7 @@ namespace IceJamsDB.Migrations
                         principalSchema: "icejam",
                         principalTable: "Damages",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Files_FileTypes_FileTypeID",
                         column: x => x.FileTypeID,
@@ -633,8 +633,7 @@ namespace IceJamsDB.Migrations
                 table: "WeatherConditions",
                 column: "WeatherConditionTypeID");
 
-            //custom sql
-            migrationBuilder.Sql(@"
+                   migrationBuilder.Sql(@"
                 CREATE OR REPLACE FUNCTION ""icejam"".""trigger_set_lastmodified""()
                     RETURNS TRIGGER AS $$
                     BEGIN

@@ -21,9 +21,4 @@
   <ItemGroup>
     <ProjectReference Include="..\IceJamsAgent\IceJamsAgent.csproj" />
   </ItemGroup>
-  
-  <ItemGroup>
-    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
-  </ItemGroup>
-
 </Project>

@@ -48,5 +48,26 @@ namespace IceJamsDB.Resources
         public List<WeatherCondition> WeatherConditions { get; set; }
         public List<Damage> Damages { get; set; }
         public List<File> Files { get; set; }
+
+        public bool ShouldSerializeIceConditions()
+        {
+            return IceConditions != null && IceConditions.Count > 0;
+        }
+        public bool ShouldSerializeRiverConditions()
+        {
+            return RiverConditions != null && RiverConditions.Count > 0;
+        }
+        public bool ShouldSerializeWeatherConditions()
+        {
+            return WeatherConditions != null && WeatherConditions.Count > 0;
+        }
+        public bool ShouldSerializeDamages()
+        {
+            return Damages != null && Damages.Count > 0;
+        }
+        public bool ShouldSerializeFiles()
+        {
+            return Files != null && Files.Count > 0;
+        }
     }
 }
