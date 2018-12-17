@@ -1,6 +1,6 @@
 [
   {
-    "ObservationDate": "1865-12-15T00:00:00.0Z",
+    "ObservationDateTime": "1865-12-15T00:00:00.0Z",
     "JamTypeID": "7",
     "SiteID": "1",
     "ObserverID": 1,
@@ -25,7 +25,7 @@
     ]
   },
   {
-    "ObservationDate": "1865-03-01T00:00:00.0Z",
+    "ObservationDateTime": "1865-03-01T00:00:00.0Z",
     "JamTypeID": "4",
     "SiteID": "2",
     "ObserverID": 1,
@@ -44,7 +44,7 @@
     ]
   },
   {
-    "ObservationDate": "1865-03-17T00:00:00.0Z",
+    "ObservationDateTime": "1865-03-17T00:00:00.0Z",
     "JamTypeID": "4",
     "SiteID": "3",
     "ObserverID": 1,
@@ -74,7 +74,7 @@
     ]
   },
   {
-    "ObservationDate": "2014-02-21T00:00:00.0Z",
+    "ObservationDateTime": "2014-02-21T00:00:00.0Z",
     "JamTypeID": "4",
     "SiteID": "4",
     "ObserverID": 1,
@@ -87,7 +87,7 @@
     "Files": null
   },
   {
-    "ObservationDate": "2014-02-21T00:00:00.0Z",
+    "ObservationDateTime": "2014-02-21T00:00:00.0Z",
     "JamTypeID": "4",
     "SiteID": "5",
     "ObserverID": 1,
