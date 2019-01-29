@@ -1,0 +1,1 @@
+The event resources represents the observed ice jam event and corresponding site data.

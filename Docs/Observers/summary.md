@@ -1,0 +1,1 @@
+The observer resource represents the ice jams event observer.
