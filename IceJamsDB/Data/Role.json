@@ -7,11 +7,11 @@
   {
     "ID": 2,
     "Name": "Internal",
-    "Description": "Internal Event Observer"
+    "Description": "Internal SiteVisit Observer"
   },
   {
     "ID": 3,
     "Name": "External",
-    "Description": "External Event Observer (default)"
+    "Description": "External SiteVisit Observer (default)"
   }
 ]

@@ -5,7 +5,7 @@ using IceJamsDB.Resources;
 
 namespace IceJamsAgent.Resources
 {
-    public class Event:IceJam
+    public class SiteVisit:IceJam
     {
 
     }

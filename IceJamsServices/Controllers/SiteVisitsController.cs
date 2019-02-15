@@ -32,9 +32,9 @@ using System.Linq;
 namespace IceJamsServices.Controllers
 {
     [Route("[controller]")]
-    public class EventsController : ControllerBase
+    public class SiteVisitsController : ControllerBase
     {
-        public EventsController(IIceJamsAgent agent ) : base(agent)
+        public SiteVisitsController(IIceJamsAgent agent ) : base(agent)
         {
         }
         #region METHODS
@@ -43,7 +43,7 @@ namespace IceJamsServices.Controllers
         {
             try
             {
-                return Ok(agent.GetEvents().ToList());
+                return Ok(agent.GetSiteVisits().ToList());
             }
             catch (Exception ex)
             {
@@ -57,7 +57,7 @@ namespace IceJamsServices.Controllers
             try
             {
                 if (id < 0) return new BadRequestResult(); // This returns HTTP 404
-                return Ok(await agent.GetEvent(id));
+                return Ok(await agent.GetSiteVisit(id));
             }
             catch (Exception ex)
             {
@@ -67,7 +67,7 @@ namespace IceJamsServices.Controllers
 
         [HttpPost]
         [Authorize(Policy = "Restricted")]
-        public async Task<IActionResult> Post([FromBody]Event entity)
+        public async Task<IActionResult> Post([FromBody]SiteVisit entity)
         {
             try
             {
@@ -82,20 +82,20 @@ namespace IceJamsServices.Controllers
             }
         }
 
-        [HttpPut("{id}")]
-        [Authorize(Policy = "AdminOnly")]
-        public async Task<IActionResult> Put(int id, [FromBody]Event entity)
-        {
-            try
-            {
-                return Ok(await agent.Update(id,entity));
-            }
-            catch (Exception ex)
-            {
-                return await HandleExceptionAsync(ex);
-            }
+        //[HttpPut("{id}")]
+        //[Authorize(Policy = "AdminOnly")]
+        //public async Task<IActionResult> Put(int id, [FromBody]SiteVisit entity)
+        //{
+        //    try
+        //    {
+        //        return Ok(await agent.Update(id,entity));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return await HandleExceptionAsync(ex);
+        //    }
 
-        }
+        //}
 
         [HttpDelete("{id}")]
         [Authorize(Policy = "AdminOnly")]
@@ -103,7 +103,7 @@ namespace IceJamsServices.Controllers
         {
             try
             {
-                await agent.DeleteEvent(id);
+                await agent.DeleteSiteVisit(id);
                 return Ok();
             }
             catch (Exception ex)

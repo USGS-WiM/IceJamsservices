@@ -43,8 +43,8 @@ namespace IceJamsAgent
         Task<Agency> Update(Int32 pkId, Agency item);
         Task DeleteAgency(Int32 pkID);
 
-        //Damages (Available via Event)
-      
+        //Damages (Available via SiteVisit)
+
         //DamageTypes
         IQueryable<DamageType> GetDamageTypes();
         Task<DamageType> GetDamageType(Int32 ID);
@@ -53,14 +53,7 @@ namespace IceJamsAgent
         Task<DamageType> Update(Int32 pkId, DamageType item);
         Task DeleteDamageType(Int32 pkID);
 
-        //Event
-        IQueryable<Event> GetEvents();
-        Task<Event> GetEvent(Int32 ID);
-        Task<Event> Add(Event item);
-        Task<Event> Update(Int32 pkId, Event item);
-        Task DeleteEvent(Int32 pkID);
-
-        //File (Available via Event)
+        //File (Available via SiteVisit)
 
         //FileType
         IQueryable<FileType> GetFileTypes();
@@ -70,7 +63,7 @@ namespace IceJamsAgent
         Task<FileType> Update(Int32 pkId, FileType item);
         Task DeleteFileType(Int32 pkID);
 
-        //IceConditions (Available via Event)
+        //IceConditions (Available via SiteVisit)
 
         //IceConditionTypes
         IQueryable<IceConditionType> GetIceConditionTypes();
@@ -80,7 +73,7 @@ namespace IceJamsAgent
         Task<IceConditionType> Update(Int32 pkId, IceConditionType item);
         Task DeleteIceConditionType(Int32 pkID);
 
-        //IceJam (Available via Event)
+        //IceJam (Available via SiteVisit)
 
         //JamTypes
         IQueryable<JamType> GetJamTypes();
@@ -99,7 +92,7 @@ namespace IceJamsAgent
         Task<Observer> Update(Int32 pkId, Observer item);
         Task DeleteObserver(Int32 pkID);
 
-        //RiverConditions (Available via Event)
+        //RiverConditions (Available via SiteVisit)
 
         //RiverConditionTypes
         IQueryable<RiverConditionType> GetRiverConditionTypes();
@@ -132,6 +125,13 @@ namespace IceJamsAgent
         Task<IEnumerable<Site>> Add(List<Site> items);
         Task<Site> Update(Int32 pkId, Site item);
         Task DeleteSite(Int32 pkID);
+        
+        //SiteVisit
+        IQueryable<SiteVisit> GetSiteVisits();
+        Task<SiteVisit> GetSiteVisit(Int32 ID);
+        Task<SiteVisit> Add(SiteVisit item);
+        Task<SiteVisit> Update(Int32 pkId, SiteVisit item);
+        Task DeleteSiteVisit(Int32 pkID);
 
         //StageTypes
         IQueryable<StageType> GetStageTypes();
@@ -141,7 +141,7 @@ namespace IceJamsAgent
         Task<StageType> Update(Int32 pkId, StageType item);
         Task DeleteStageType(Int32 pkID);
 
-        //WeatherConditions (Available via Event)
+        //WeatherConditions (Available via SiteVisit)
 
         //WeatherConditionTypes
         IQueryable<WeatherConditionType> GetWeatherConditionTypes();
@@ -215,50 +215,6 @@ namespace IceJamsAgent
         public Task DeleteDamageType(Int32 pkID)
         {
             return this.Delete<DamageType>(pkID);
-        }
-        #endregion
-        #region Event
-        public IQueryable<Event> GetEvents()
-        {
-            return this.Select<IceJam>().Include(i => i.Type)
-                                        .Include("Damages.Type").Include("Damages.Files")
-                                        .Include("Files.Type")
-                                        .Include("WeatherConditions.Type")
-                                        .Include("IceConditions.Type").Include("IceConditions.RoughnessType")
-                                        .Include("RiverConditions.Type").Include("RiverConditions.StageType").Select(j => new Event()
-                                        {
-                                            ID = j.ID,
-                                            ObservationDateTime = j.ObservationDateTime,
-                                            JamTypeID = j.JamTypeID,
-                                            SiteID = j.SiteID,
-                                            ObserverID = j.ObserverID,
-                                            Description = j.Description,
-                                            Comments = j.Comments,
-
-                                            Type = j.Type,
-                                            IceConditions = j.IceConditions,
-                                            RiverConditions = j.RiverConditions,
-                                            WeatherConditions = j.WeatherConditions,
-                                            Damages = j.Damages,
-                                            Files = j.Files
-                                        });
-        }
-        public Task<Event> GetEvent(Int32 ID)
-        {
-            return this.GetEvents().FirstOrDefaultAsync(i => i.ID == ID);            
-        }
-        public Task<Event> Add(Event item)
-        {
-            return this.Add<IceJam>(item).ContinueWith<Event>(t => (Event)t.Result);            
-        }
-        public Task<Event> Update(Int32 pkId, Event item)
-        {
-#warning "Todo"
-            throw new NotImplementedException();
-        }
-        public Task DeleteEvent(Int32 pkID)
-        {
-            return this.Delete<IceJam>(pkID);
         }
         #endregion
         #region FileTypes
@@ -510,6 +466,50 @@ namespace IceJamsAgent
         public Task DeleteSite(Int32 pkID)
         {
             return this.Delete<Site>(pkID);
+        }
+        #endregion
+        #region SiteVisit
+        public IQueryable<SiteVisit> GetSiteVisits()
+        {
+            return this.Select<IceJam>().Include(i => i.Type)
+                                        .Include("Damages.Type").Include("Damages.Files")
+                                        .Include("Files.Type")
+                                        .Include("WeatherConditions.Type")
+                                        .Include("IceConditions.Type").Include("IceConditions.RoughnessType")
+                                        .Include("RiverConditions.Type").Include("RiverConditions.StageType").Select(j => new SiteVisit()
+                                        {
+                                            ID = j.ID,
+                                            ObservationDateTime = j.ObservationDateTime,
+                                            JamTypeID = j.JamTypeID,
+                                            SiteID = j.SiteID,
+                                            ObserverID = j.ObserverID,
+                                            Description = j.Description,
+                                            Comments = j.Comments,
+
+                                            Type = j.Type,
+                                            IceConditions = j.IceConditions,
+                                            RiverConditions = j.RiverConditions,
+                                            WeatherConditions = j.WeatherConditions,
+                                            Damages = j.Damages,
+                                            Files = j.Files
+                                        });
+        }
+        public Task<SiteVisit> GetSiteVisit(Int32 ID)
+        {
+            return this.GetSiteVisits().FirstOrDefaultAsync(i => i.ID == ID);
+        }
+        public Task<SiteVisit> Add(SiteVisit item)
+        {
+            return this.Add<IceJam>(item).ContinueWith<SiteVisit>(t => (SiteVisit)t.Result);
+        }
+        public Task<SiteVisit> Update(Int32 pkId, SiteVisit item)
+        {
+#warning "Todo"
+            throw new NotImplementedException();
+        }
+        public Task DeleteSiteVisit(Int32 pkID)
+        {
+            return this.Delete<IceJam>(pkID);
         }
         #endregion
         #region StageTypes
