@@ -1,0 +1,1 @@
+The Site resource represents an site or location available for ice jam event to occur.

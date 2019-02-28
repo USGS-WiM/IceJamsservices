@@ -18,6 +18,7 @@
 //
 //   
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 namespace IceJamsDB.Resources
@@ -31,9 +32,11 @@ namespace IceJamsDB.Resources
         [Required]
         public int DamageTypeID { get; set; }
         [Required]
+        public DateTime DateTimeReported { get; set; }
+        [Required]
         public string Description { get; set; }
 
-
         public List<File> Files { get; set; }
+        public DamageType Type { get; set; }
     }
 }

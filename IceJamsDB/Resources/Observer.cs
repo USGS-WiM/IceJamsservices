@@ -38,7 +38,7 @@ namespace IceJamsDB.Resources
         public string PrimaryPhone { get; set; }
         [Phone]
         public string SecondaryPhone { get; set; }
-        public int AgencyID { get; set; }
+        public int? AgencyID { get; set; }
         [Required]
         public int RoleID { get; set; }        
         public string OtherInfo { get; set; }
@@ -48,5 +48,6 @@ namespace IceJamsDB.Resources
         public string Salt { get; set; }
 
         public Role Role { get; set; }
+        public Agency Agency { get; set; }
     }
 }

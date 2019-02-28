@@ -1,0 +1,1 @@
+The RiverConditionType resource represents an river condition type list available for ice jam event Ice conditions.

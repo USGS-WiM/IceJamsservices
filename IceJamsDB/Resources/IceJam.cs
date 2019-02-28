@@ -19,6 +19,7 @@
 //   
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 namespace IceJamsDB.Resources
 {
@@ -37,6 +38,36 @@ namespace IceJamsDB.Resources
         [Required]
         public string Description { get; set; }
         public string Comments { get; set; }
-        
+
+        public Site Site { get; set; }
+        public JamType Type { get; set; }
+        public Observer Observer { get; set; }
+
+        public List<IceCondition> IceConditions { get; set; }
+        public List<RiverCondition> RiverConditions { get; set; }
+        public List<WeatherCondition> WeatherConditions { get; set; }
+        public List<Damage> Damages { get; set; }
+        public List<File> Files { get; set; }
+
+        public bool ShouldSerializeIceConditions()
+        {
+            return IceConditions != null && IceConditions.Count > 0;
+        }
+        public bool ShouldSerializeRiverConditions()
+        {
+            return RiverConditions != null && RiverConditions.Count > 0;
+        }
+        public bool ShouldSerializeWeatherConditions()
+        {
+            return WeatherConditions != null && WeatherConditions.Count > 0;
+        }
+        public bool ShouldSerializeDamages()
+        {
+            return Damages != null && Damages.Count > 0;
+        }
+        public bool ShouldSerializeFiles()
+        {
+            return Files != null && Files.Count > 0;
+        }
     }
 }

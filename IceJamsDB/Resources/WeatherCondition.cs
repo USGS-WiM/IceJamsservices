@@ -34,12 +34,11 @@ namespace IceJamsDB.Resources
         [Required]
         public int WeatherConditionTypeID { get; set; }
         [Required]
-        public double Value { get; set; }
-        public bool IsEstimated { get; set; }
-        public bool IsChanging { get; set; }
-        [Required]
+        public double Measurement { get; set; }
+        public bool? IsEstimated { get; set; }
+        public bool? IsChanging { get; set; }
         public string Comments { get; set; }
 
-        public WeatherConditionType weatherConditionType { get; set; }
+        public WeatherConditionType Type { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,6 +11,13 @@ using WiM.Services.Analytics;
 using WiM.Utilities.ServiceAgent;
 using WiM.Services.Resources;
 using IceJamsServices.Filters;
+using IceJamsDB;
+using System;
+using WiM.Security.Authentication.Basic;
+using Microsoft.AspNetCore.Authorization;
+using NetTopologySuite.IO;
+using NetTopologySuite.Geometries;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace IceJamsServices
 {
@@ -23,7 +31,8 @@ namespace IceJamsServices
             .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
             .AddEnvironmentVariables();
             if (env.IsDevelopment()) {
-                //builder.AddApplicationInsightsSettings(developerMode: true);
+                builder.AddUserSecrets<Startup>();
+                builder.AddApplicationInsightsSettings(developerMode: true);
             }
 
             Configuration = builder.Build();
@@ -43,13 +52,19 @@ namespace IceJamsServices
                                                         options.UseNpgsql(String.Format(Configuration
                                                             .GetConnectionString("IceJamsConnection"), Configuration["dbuser"], Configuration["dbpassword"], Configuration["dbHost"]),
                                                             //default is 1000, if > maxbatch, then EF will group requests in maxbatch size
-                                                            opt => opt.MaxBatchSize(1000))
+                                                            opt => { opt.MaxBatchSize(1000); opt.UseNetTopologySuite(); })
                                                             .EnableSensitiveDataLogging());
 
-            services.AddScoped<IIceJamsAgent, IceJamsServiceAgent>();
-
             services.AddScoped<IIceJamsAgent, IceJamsAgent.IceJamsAgent>();
+            services.AddScoped<IBasicUserAgent, IceJamsAgent.IceJamsAgent>();
+
             services.AddScoped<IAnalyticsAgent, GoogleAnalyticsAgent>((gaa)=> new GoogleAnalyticsAgent(Configuration["AnalyticsKey"]));
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = BasicDefaults.AuthenticationScheme;
+            }).AddBasicAuthentication();
+            services.AddAuthorization(options => loadAutorizationPolicies(options));
+
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy", builder => builder.AllowAnyOrigin()
@@ -58,18 +73,22 @@ namespace IceJamsServices
                                                                  .AllowCredentials());
             });
 
-            services.AddMvc(options => { options.RespectBrowserAcceptHeader = true;
-                options.Filters.Add(new IceJamsHypermedia());})                               
-                                .AddJsonOptions(options => loadJsonOptions(options));                                
+            services.AddMvc(options => { options.RespectBrowserAcceptHeader = true;                
+                //needed for geojson deserializer
+                options.ModelMetadataDetailsProviders.Add(new SuppressChildValidationMetadataProvider(typeof(Point)));
+                options.ModelMetadataDetailsProviders.Add(new SuppressChildValidationMetadataProvider(typeof(LineString)));
+                options.ModelMetadataDetailsProviders.Add(new SuppressChildValidationMetadataProvider(typeof(MultiLineString)));
+
+                //Resources must inherit from IHypermedia for this to work.
+                //options.Filters.Add(new IceJamsHypermedia());
+            }).AddJsonOptions(options => loadJsonOptions(options));                                
                                 
         }     
 
         // Method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
-
+            app.UseAuthentication();
             app.UseCors("CorsPolicy");
             app.Use_Analytics();
             app.UseX_Messages();
@@ -78,15 +97,31 @@ namespace IceJamsServices
         }
 
         #region Helper Methods
+        private void loadAutorizationPolicies(AuthorizationOptions options)
+        {
+            options.AddPolicy(
+                "Restricted",
+                policy => policy.RequireRole("Administrator", "Internal"));
+            options.AddPolicy(
+                "AdminOnly",
+                policy => policy.RequireRole("Administrator"));
+        }
+
         private void loadJsonOptions(MvcJsonOptions options)
         {
+            //options.SerializerSettings.TraceWriter = new memoryTraceWriter();
             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             options.SerializerSettings.MissingMemberHandling = Newtonsoft.Json.MissingMemberHandling.Ignore;
             options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
             options.SerializerSettings.TypeNameHandling = Newtonsoft.Json.TypeNameHandling.None;
             options.SerializerSettings.TypeNameAssemblyFormatHandling = Newtonsoft.Json.TypeNameAssemblyFormatHandling.Simple;
             options.SerializerSettings.Formatting = Newtonsoft.Json.Formatting.None;
+            //needed for geojson serializer
+            foreach(var converter in GeoJsonSerializer.Create(new GeometryFactory(new PrecisionModel(), 4326)).Converters)
+            {options.SerializerSettings.Converters.Add(converter);}
+            
         }
         #endregion
     }
+
 }

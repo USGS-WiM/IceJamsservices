@@ -1,0 +1,1 @@
+The RoughnessType resource represents an  roughness type list available for ice jam event Ice conditions.

@@ -1,0 +1,17 @@
+[
+  {
+    "ID": 1,
+    "Name": "Administrator",
+    "Description": "System Administrator"
+  },
+  {
+    "ID": 2,
+    "Name": "Internal",
+    "Description": "Internal SiteVisit Observer"
+  },
+  {
+    "ID": 3,
+    "Name": "External",
+    "Description": "External SiteVisit Observer (default)"
+  }
+]

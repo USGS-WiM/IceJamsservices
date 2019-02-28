@@ -1,0 +1,22 @@
+[
+  {
+    "ID": 1,
+    "Name": "Image",
+    "Description": "Photograph"
+  },
+  {
+    "ID": 2,
+    "Name": "Doc",
+    "Description": "Data sheet or text document."
+  },
+  {
+    "ID": 3,
+    "Name": "Pub",
+    "Description": "Publication file."
+  },
+  {
+    "ID": 4,
+    "Name": "Other",
+    "Description": "Other document type not listed."
+  }
+]

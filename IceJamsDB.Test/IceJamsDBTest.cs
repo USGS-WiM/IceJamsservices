@@ -5,6 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Linq;
+using WiM.Security;
+using IceJamsDB.Resources;
 
 namespace IceJamsDB.Test
 {
@@ -12,13 +14,15 @@ namespace IceJamsDB.Test
     public class IceJamsDBTest
     {
         private string connectionstring = new ConfigurationBuilder()
+                    //a completed appsettings.json file needs to be located in at .\IceJamsDB.Test\bin\Debug\netcoreapp2.2
+                    //that contains the connection string.
                     .AddJsonFile("appsettings.json")
-                    .Build().GetConnectionString("wateruseConnection");
+                    .Build().GetConnectionString("IceJamsConnection");
 
         [TestMethod]
         public void ConnectionTest()
         {
-            using (IceJamsDBContext context = new IceJamsDBContext(new DbContextOptionsBuilder<IceJamsDBContext>().UseNpgsql(this.connectionstring).Options))
+            using (IceJamsDBContext context = new IceJamsDBContext(new DbContextOptionsBuilder<IceJamsDBContext>().UseNpgsql(this.connectionstring, x => x.UseNetTopologySuite()).Options))
             {
                 try
                 {
@@ -33,7 +37,7 @@ namespace IceJamsDB.Test
         [TestMethod]
         public void QueryTest()
         {
-            using (IceJamsDBContext context = new IceJamsDBContext(new DbContextOptionsBuilder<IceJamsDBContext>().UseNpgsql(this.connectionstring).Options))
+            using (IceJamsDBContext context = new IceJamsDBContext(new DbContextOptionsBuilder<IceJamsDBContext>().UseNpgsql(this.connectionstring, x => x.UseNetTopologySuite()).Options))
             {
                 try
                 {
@@ -50,5 +54,45 @@ namespace IceJamsDB.Test
 
             }
         }
+        [TestMethod]
+        public void AddManagerTest()
+        {
+            using (IceJamsDBContext context = new IceJamsDBContext(new DbContextOptionsBuilder<IceJamsDBContext>().UseNpgsql(this.connectionstring, x => x.UseNetTopologySuite()).Options))
+            { 
+                try
+                {
+                    var salt = Cryptography.CreateSalt();
+                    var password = "";
+
+                    if (String.IsNullOrEmpty(password)) throw new Exception("password cannot be empty");
+
+                    Observer observer = new Observer()
+                    {
+                        FirstName = "Test",
+                        Email = "testAdmin@usgs.gov",
+                        LastName = "Administrator",
+                        RoleID = 1,
+                        Username = "testAdmin",
+                        Password = Cryptography.GenerateSHA256Hash(password, salt),
+                        Salt = salt
+
+                    };
+                    context.Observers.Add(observer);
+                    context.SaveChanges();
+
+                    Assert.IsTrue(Cryptography.VerifyPassword(password, observer.Salt, observer.Password));
+
+                }
+                catch (Exception ex)
+                {
+                    Assert.Fail(ex.Message);
+                }
+                finally
+                {
+                }
+
+            }
+        }
+
     }
 }

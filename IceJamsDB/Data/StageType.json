@@ -1,0 +1,12 @@
+[
+  {
+    "ID": 1,
+    "Name": "Drop down",
+    "Description": "Drop down messurment from known location."
+  },
+  {
+    "ID": 2,
+    "Name": "Gage reading",
+    "Description": ""
+  }
+]

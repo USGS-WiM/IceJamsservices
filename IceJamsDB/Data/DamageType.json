@@ -1,0 +1,27 @@
+[
+  {
+    "ID": 1,
+    "Name": "Flooding",
+    "Description": "Damaged due to flood"
+  },
+  {
+    "ID": 2,
+    "Name": "Infrastructure",
+    "Description": "Structure or building damage"
+  },
+  {
+    "ID": 3,
+    "Name": "Mortality",
+    "Description": "Death"
+  },
+  {
+    "ID": 4,
+    "Name": "Property",
+    "Description": "Property damage"
+  },
+  {
+    "ID": 5,
+    "Name": "Other",
+    "Description": "Other - see description/comments"
+  }
+]
