@@ -2,22 +2,18 @@
 This API is intended to document the available service endpoints and provide limited example usage to assist developers in building outside programs that leverage the same data sources in an effort to minimize duplicative efforts across the USGS and other agencies.
 
 ### Status
-Something about the status of project
+These services are in a prototype phase.
 ### Getting Started
 The URL and sample of each resource can be obtained by accessing one of the following resources located on the sidebar (or selecting the menu button located on the bottom of the screen, if viewing on a mobile device). The ice jams services perform multiple procedures which include; database and geospatial queries, and spatial operations to compile and create simple responses with hypermedia enabled links to related resources. The responses are intended to be directly consumed by custom client applications and used to more fully decouple the client-service relationship by providing directional hypermedia links within the resource response objects.
 
-The 2 matrices are multiplied together to obtain an unbiased minimum variance estimate of the correlation between the ungaged point and the referenced sites. 
-Each gage is ranked by correlation value.
-
-The ice jams Services API performs multiple ice jamsing procedures in order to compile a list of best fit correlated gages that can be consumed by custom client applications. As documented by this page, which can also serve as a simple URL builder, the ice jams Services API is built following [RESTful](http://en.wikipedia.org/wiki/Representational_state_transfer) principles to ensure scalability and predictable URLs. JSON is returned by all API responses, including errors and example results and summaries for each resource. This API is intended to provide some guidance in working with the services, however some methods may only provide visual examples due to authentication requirements or limitations of the API documentation application. 
+As documented by this page, which can also serve as a simple URL builder, the ice jams Services API is built following [RESTful](http://en.wikipedia.org/wiki/Representational_state_transfer) principles to ensure scalability and predictable URLs. JSON is returned by all API responses, including errors and example results and summaries for each resource. This API is intended to provide some guidance in working with the services, however some methods may only provide visual examples due to authentication requirements or limitations of the API documentation application. 
 
 ### Getting Started
-The URL and sample of each resource can be obtained by accessing one of the following resources located on the sidebar (or selecting the menu button located on the bottom of the screen, if viewing on a mobile device). The NSS services perform multiple procedures which include; database and geospatial queries and spatial operations to compile and create simple responses with hypermedia enabled links to related resources. The responses are intended to be directly consumed by custom client applications and used to more fully decouple the client-service relationship by providing directional hypermedia links within the resource response objects.
+The URL and sample of each resource can be obtained by accessing one of the following resources located on the sidebar (or selecting the menu button located on the bottom of the screen, if viewing on a mobile device). The responses are intended to be directly consumed by custom client applications and used to more fully decouple the client-service relationship by providing directional hypermedia links within the resource response objects.
 ### Using the API
 The URL and an example response can be obtained by accessing one of the following resources and uri endpoint located on the sidebar (or selecting the menu button located on the bottom of the screen, if viewing on a mobile device). 
 
-<img alt="sidebarImage.jpg" 
-src="" />
+<img alt="sidebarimage.png" src="sidebarimage.png" />
 
 The sidebar displays the available service resources, accompanying HTTP method and URI endpoints. Selecting a URL endpoint will display additional resource documentation information related to the selected endpoint. Such as;
 
@@ -45,7 +41,7 @@ Web service request can be performed using most HTTP client libraries. The follo
 
 ```
 GET /IceJamsservices HTTP/1.1
-Host: streamstats.usgs.gov
+Host: test.wim.usgs.gov
 Accept: application/json
 ```
 ```
