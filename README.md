@@ -1,5 +1,8 @@
 ![WiM](wimlogo.png)
 
+# Archived
+## This repository is archived. The active repository is in GitLab
+
 # IceJams Services
 This project was created using the WIM services icejams. The WIM Services icejams usage is outlined below:
 ## Installation of icejams
